@@ -3,7 +3,7 @@ import re
 from collections import OrderedDict
 from functools import reduce
 
-cli_mode = len(sys.argv) > 0
+cli_mode = len(sys.argv) > 1
 
 if not cli_mode:
     import telebot
