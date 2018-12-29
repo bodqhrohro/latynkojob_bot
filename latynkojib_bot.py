@@ -1,10 +1,10 @@
-import telebot
-# import sys
+# import telebot
+import sys
 import re
 from collections import OrderedDict
 from functools import reduce
 
-bot = telebot.TeleBot("your_token")
+# bot = telebot.TeleBot("your_token")
 
 latynko_soft_digraph_dict = OrderedDict([
     ('cj',    'шь'),
@@ -87,7 +87,7 @@ patterns_dicts = [(re.compile("(%s)" % '|'.join(dict.keys())), dict) for dict in
 
 
 def is_latynka(str):
-    return re.search(r'[a-z]', str)
+    return re.search(r"[a-z\']", str)
 
 
 def xlate(s, pattern_dict):
@@ -95,13 +95,13 @@ def xlate(s, pattern_dict):
     return regex.sub(lambda x: dict[x.group()], s)
 
 
-@bot.message_handler(content_types=['text'])
-def reply(message):
-    latynka = message.text.lower()
-# latynka = str(sys.argv[1]).lower() 
-    if is_latynka(latynka):
-        kyrylka = reduce(xlate, patterns_dicts, latynka)
-        bot.send_message(message.chat.id, kyrylka)
+# @bot.message_handler(content_types=['text'])
+# def reply(message):
+    # latynka = message.text.lower()
+latynka = str(sys.argv[1]).lower() 
+if is_latynka(latynka):
+    kyrylka = reduce(xlate, patterns_dicts, latynka)
+        # bot.send_message(message.chat.id, kyrylka)
 
-# print(kyrylka)
-bot.polling()
+print(kyrylka)
+# bot.polling()
