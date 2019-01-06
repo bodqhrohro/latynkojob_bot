@@ -110,9 +110,13 @@ if cli_mode:
         kyrylka = xlate_all(latynka)
         print(kyrylka)
 else:
-    @bot.message_handler(content_types=['text'])
+    @bot.message_handler(content_types=['text', 'photo'])
     def reply(message):
-        latynka = message.text.lower()
+        if message.content_type == 'text':
+            latynka = message.text
+        else:
+            latynka = message.caption
+        latynka = latynka.lower()
         if is_latynka(latynka):
             kyrylka = xlate_all(latynka)
             bot.send_message(message.chat.id, kyrylka)
