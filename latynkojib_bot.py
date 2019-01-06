@@ -111,6 +111,7 @@ if cli_mode:
         print(kyrylka)
 else:
     @bot.message_handler(content_types=['text', 'photo'])
+    @bot.edited_message_handler(content_types=['text', 'photo'])
     def reply(message):
         if message.content_type == 'text':
             latynka = message.text
